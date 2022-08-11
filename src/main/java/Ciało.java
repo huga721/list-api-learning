@@ -19,12 +19,12 @@ public class Ciało {
         this.ksiezyce = new HashSet<>();
     }
 
-
     public double getOkresOrbitowania() {
         return okresOrbitowania;
     }
+
     public boolean addKsiezyc(Ciało ksiezyc){
-        if (ksiezyc.key.getTypCiala() == TypCiala.KSIEZYC) {
+        if (ksiezyc.getKey().getTypCiala() == TypCiala.KSIEZYC) {
             return this.ksiezyce.add(ksiezyc);
         } else {
             return false;
@@ -35,6 +35,9 @@ public class Ciało {
     public Set<Ciało> getKsiężyce() {
         return new HashSet<>(this.ksiezyce);
     }
+    public static Key makeKey(String nazwa, TypCiala typCiala){
+        return new Key(nazwa, typCiala);
+    }
 
     public Key getKey() {
         return key;
@@ -42,7 +45,7 @@ public class Ciało {
 
     @Override
     public final int hashCode() { // jeśli equals jest final, wtedy hashCode też musi być final
-        return this.key.getNazwa().hashCode();
+        return this.key.hashCode();
     }
 
     @Override
@@ -61,10 +64,8 @@ public class Ciało {
 
     @Override
     public String toString() {
-        return this.key.getNazwa() + ": " + this.key.getTypCiala() + ": " + this.okresOrbitowania;
+        return this.key.getNazwa() + " " + this.key.getTypCiala() + " " + this.okresOrbitowania;
     }
-
-
 
     public static final class Key{
         private String nazwa;
@@ -81,6 +82,11 @@ public class Ciało {
 
         public TypCiala getTypCiala() {
             return typCiala;
+        }
+
+        @Override
+        public String toString() {
+            return this.nazwa + ": " + this.typCiala;
         }
 
         @Override
